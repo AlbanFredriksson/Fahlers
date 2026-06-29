@@ -1,0 +1,1886 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fahlers – Guider för företagare</title>
+  <meta name="description" content="Enkla, praktiska guider som hjälper dig att starta och driva företag med bättre koll." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+/* =========================================
+   FAHLERS – style.css
+   Palette: Deep navy · Warm gold · Off-white
+   ========================================= */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --navy:        #0D1B2A;
+  --navy-mid:    #162336;
+  --navy-light:  #1E2F42;
+  --gold:        #C9A84C;
+  --gold-light:  #E8C97A;
+  --cream:       #F8F5EF;
+  --white:       #FFFFFF;
+  --text:        #0D1B2A;
+  --text-mid:    #3A4A5A;
+  --text-light:  #6B7C8D;
+  --border:      #E2DDD5;
+
+  --font-serif:  'Playfair Display', Georgia, serif;
+  --font-sans:   'DM Sans', system-ui, sans-serif;
+
+  --ease-out:    cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+
+  --radius:      8px;
+  --radius-lg:   16px;
+  --shadow-sm:   0 1px 3px rgba(13,27,42,.08), 0 1px 2px rgba(13,27,42,.06);
+  --shadow-md:   0 4px 16px rgba(13,27,42,.10), 0 2px 6px rgba(13,27,42,.06);
+  --shadow-lg:   0 20px 60px rgba(13,27,42,.15);
+}
+
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  font-family: var(--font-sans);
+  color: var(--text);
+  background: var(--white);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---- UTILITIES ---- */
+.container {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: var(--radius);
+  font-family: var(--font-sans);
+  font-size: .9rem;
+  font-weight: 500;
+  letter-spacing: .01em;
+  cursor: pointer;
+  border: 1.5px solid transparent;
+  text-decoration: none;
+  transition: background 180ms var(--ease-out), color 180ms var(--ease-out),
+              border-color 180ms var(--ease-out), transform 120ms var(--ease-out),
+              box-shadow 180ms var(--ease-out);
+  white-space: nowrap;
+}
+
+.btn:active { transform: scale(0.97); }
+
+.btn-primary {
+  background: var(--navy);
+  color: var(--white);
+  border-color: var(--navy);
+}
+.btn-primary:hover {
+  background: var(--navy-mid);
+  box-shadow: 0 4px 16px rgba(13,27,42,.25);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--navy);
+  border-color: var(--navy);
+}
+.btn-outline:hover {
+  background: var(--navy);
+  color: var(--white);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--white);
+  border-color: rgba(255,255,255,.4);
+}
+.btn-ghost:hover {
+  background: rgba(255,255,255,.1);
+  border-color: rgba(255,255,255,.7);
+}
+
+.btn-nav {
+  background: var(--gold);
+  color: var(--navy);
+  border-color: var(--gold);
+  padding: 9px 20px;
+  font-size: .85rem;
+}
+.btn-nav:hover {
+  background: var(--gold-light);
+  border-color: var(--gold-light);
+}
+
+.btn-full { width: 100%; justify-content: center; }
+
+.section-tag {
+  display: inline-block;
+  font-size: .72rem;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 12px;
+}
+
+/* ---- REVEAL ANIMATIONS ---- */
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 500ms var(--ease-out), transform 500ms var(--ease-out);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: 80ms; }
+.reveal-delay-2 { transition-delay: 160ms; }
+.reveal-delay-3 { transition-delay: 240ms; }
+.reveal-delay-4 { transition-delay: 320ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+}
+
+/* ---- ANNOUNCEMENT BAR ---- */
+.announcement-bar {
+  background: var(--navy);
+  color: rgba(255,255,255,.9);
+  text-align: center;
+  padding: 9px 16px;
+  font-size: .8rem;
+  letter-spacing: .02em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.announcement-dot {
+  width: 6px; height: 6px;
+  background: var(--gold);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* ---- HEADER ---- */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(255,255,255,.96);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  transition: box-shadow 200ms var(--ease-out);
+}
+.header.scrolled { box-shadow: var(--shadow-md); }
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  height: 64px;
+}
+
+.logo {
+  text-decoration: none;
+  display: flex;
+  align-items: baseline;
+  gap: 1px;
+  flex-shrink: 0;
+}
+.logo-f {
+  font-family: var(--font-serif);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1;
+}
+.logo-text {
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  font-weight: 400;
+  color: var(--navy);
+  letter-spacing: .01em;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 28px;
+  margin-left: auto;
+}
+.nav-links a {
+  text-decoration: none;
+  font-size: .88rem;
+  font-weight: 400;
+  color: var(--text-mid);
+  letter-spacing: .01em;
+  transition: color 150ms;
+}
+.nav-links a:hover { color: var(--navy); }
+
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  margin-left: auto;
+}
+.nav-toggle span {
+  display: block;
+  width: 22px; height: 2px;
+  background: var(--navy);
+  border-radius: 2px;
+  transition: transform 200ms var(--ease-out), opacity 200ms;
+}
+.nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-toggle.open span:nth-child(2) { opacity: 0; }
+.nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+.mobile-menu {
+  display: none;
+  background: var(--white);
+  border-top: 1px solid var(--border);
+  padding: 16px 24px 24px;
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: opacity 200ms var(--ease-out), transform 200ms var(--ease-out);
+}
+.mobile-menu.open { opacity: 1; transform: translateY(0); }
+.mobile-menu ul { list-style: none; }
+.mobile-menu li { border-bottom: 1px solid var(--border); }
+.mobile-link {
+  display: block;
+  padding: 14px 0;
+  text-decoration: none;
+  font-size: .95rem;
+  color: var(--navy);
+  font-weight: 500;
+}
+
+/* ---- HERO ---- */
+.hero {
+  position: relative;
+  background: var(--navy) url('hero.jpg') center center / cover no-repeat;
+  color: var(--white);
+  padding: 100px 0 80px;
+  overflow: hidden;
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(13, 27, 42, 0.65);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero-bg-lines {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: space-between;
+  opacity: .04;
+  pointer-events: none;
+  z-index: 1;
+}
+.bg-line {
+  width: 1px;
+  background: var(--white);
+  height: 100%;
+}
+
+/* Subtle gold gradient orb */
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -100px; left: 5%;
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(201,168,76,.07) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 720px;
+}
+
+.hero-tag {
+  display: inline-block;
+  font-size: .75rem;
+  font-weight: 500;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--gold);
+  border: 1px solid rgba(201,168,76,.35);
+  padding: 5px 14px;
+  border-radius: 100px;
+  margin-bottom: 24px;
+}
+
+.hero-title {
+  font-family: var(--font-serif);
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -.01em;
+  margin-bottom: 20px;
+  color: var(--white);
+}
+.hero-title em {
+  font-style: italic;
+  color: var(--gold);
+}
+
+.hero-sub {
+  font-size: 1.05rem;
+  color: rgba(255,255,255,.72);
+  max-width: 520px;
+  line-height: 1.7;
+  margin-bottom: 36px;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 48px;
+}
+
+.hero-trust {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.trust-item {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: .8rem;
+  color: rgba(255,255,255,.65);
+}
+.trust-divider {
+  width: 1px;
+  height: 16px;
+  background: rgba(255,255,255,.2);
+}
+
+.hero-scroll-indicator {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  opacity: .4;
+}
+.scroll-line {
+  width: 1px; height: 40px;
+  background: var(--white);
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+@keyframes scrollPulse {
+  0%,100% { transform: scaleY(1); opacity: .4; }
+  50% { transform: scaleY(.5); opacity: .9; }
+}
+.hero-scroll-indicator span {
+  font-size: .7rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--white);
+}
+
+/* ---- LEAD MAGNET ---- */
+.lead-magnet {
+  background: var(--cream);
+  padding: 80px 0;
+  border-bottom: 1px solid var(--border);
+}
+.lead-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+}
+.lead-badge {
+  display: inline-block;
+  background: var(--gold);
+  color: var(--navy);
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  padding: 4px 12px;
+  border-radius: 4px;
+  margin-bottom: 16px;
+}
+.lead-content h2 {
+  font-family: var(--font-serif);
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 14px;
+  color: var(--navy);
+}
+.lead-content > p {
+  color: var(--text-mid);
+  margin-bottom: 20px;
+  line-height: 1.7;
+}
+.lead-list {
+  list-style: none;
+  margin-bottom: 28px;
+}
+.lead-list li {
+  padding: 6px 0;
+  padding-left: 20px;
+  position: relative;
+  font-size: .9rem;
+  color: var(--text-mid);
+}
+.lead-list li::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 50%;
+  transform: translateY(-50%);
+  width: 6px; height: 6px;
+  background: var(--gold);
+  border-radius: 50%;
+}
+.lead-form {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.lead-input {
+  flex: 1;
+  min-width: 200px;
+  padding: 12px 16px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  font-family: var(--font-sans);
+  font-size: .9rem;
+  background: var(--white);
+  color: var(--text);
+  transition: border-color 150ms;
+}
+.lead-input:focus {
+  outline: none;
+  border-color: var(--navy);
+}
+.lead-disclaimer {
+  font-size: .75rem;
+  color: var(--text-light);
+  margin-top: 10px;
+}
+
+/* Guide mockup */
+.lead-visual {
+  display: flex;
+  justify-content: center;
+}
+.guide-mockup {
+  width: 260px;
+  aspect-ratio: 3/4;
+  background: var(--navy);
+  border-radius: var(--radius-lg);
+  padding: 3px;
+  box-shadow: var(--shadow-lg), 0 0 0 1px rgba(201,168,76,.2);
+  transform: rotate(2deg);
+  transition: transform 300ms var(--ease-out);
+}
+.guide-mockup:hover { transform: rotate(0deg) scale(1.02); }
+.guide-mockup-inner {
+  background: linear-gradient(145deg, var(--navy-mid) 0%, #0a1520 100%);
+  border-radius: calc(var(--radius-lg) - 3px);
+  height: 100%;
+  padding: 32px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border: 1px solid rgba(201,168,76,.1);
+  position: relative;
+  overflow: hidden;
+}
+.guide-mockup-inner::before {
+  content: '';
+  position: absolute;
+  top: -40px; right: -40px;
+  width: 140px; height: 140px;
+  background: radial-gradient(circle, rgba(201,168,76,.12) 0%, transparent 70%);
+}
+.mockup-logo {
+  font-family: var(--font-serif);
+  font-size: 1.4rem;
+  color: var(--gold);
+  font-weight: 700;
+}
+.mockup-title {
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  color: var(--white);
+  font-weight: 600;
+  line-height: 1.3;
+  margin-top: 8px;
+}
+.mockup-subtitle {
+  font-size: .75rem;
+  color: rgba(255,255,255,.5);
+  line-height: 1.4;
+}
+.mockup-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  margin-top: 16px;
+}
+.ml {
+  height: 2px;
+  background: rgba(255,255,255,.1);
+  border-radius: 2px;
+}
+.ml-short { width: 70%; }
+.ml-shorter { width: 50%; }
+.mockup-badge {
+  position: absolute;
+  bottom: 24px; right: 24px;
+  background: var(--gold);
+  color: var(--navy);
+  font-size: .65rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  padding: 5px 10px;
+  border-radius: 4px;
+}
+
+/* ---- GUIDES SECTION ---- */
+.guides-section {
+  padding: 96px 0;
+  background: var(--white);
+}
+.section-header {
+  text-align: center;
+  margin-bottom: 56px;
+}
+.section-header h2 {
+  font-family: var(--font-serif);
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 10px;
+}
+.section-header p {
+  color: var(--text-light);
+  font-size: .95rem;
+}
+
+.guides-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+
+.guide-card {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  position: relative;
+  transition: box-shadow 200ms var(--ease-out), transform 200ms var(--ease-out),
+              border-color 200ms var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .guide-card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+    border-color: rgba(13,27,42,.15);
+  }
+}
+
+.guide-card-featured {
+  border-color: var(--navy);
+  background: var(--cream);
+  transform: scale(1.02);
+}
+@media (hover: hover) and (pointer: fine) {
+  .guide-card-featured:hover { transform: scale(1.02) translateY(-2px); }
+}
+
+.guide-card-badge {
+  position: absolute;
+  top: -11px; left: 24px;
+  background: var(--navy);
+  color: var(--white);
+  font-size: .65rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  padding: 4px 12px;
+  border-radius: 4px;
+}
+.guide-card-badge--gold {
+  background: var(--gold);
+  color: var(--navy);
+}
+.guide-card-badge--dark {
+  background: var(--text);
+  color: var(--white);
+}
+
+.guide-card-category {
+  font-size: .75rem;
+  font-weight: 500;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--text-light);
+  margin-bottom: 10px;
+}
+
+.guide-card-title {
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1.2;
+  margin-bottom: 12px;
+}
+
+.guide-card-desc {
+  font-size: .87rem;
+  color: var(--text-mid);
+  line-height: 1.65;
+  margin-bottom: 20px;
+}
+
+.guide-card-includes {
+  list-style: none;
+  margin-bottom: 28px;
+  border-top: 1px solid var(--border);
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.guide-card-includes li {
+  font-size: .83rem;
+  color: var(--text-mid);
+  padding-left: 18px;
+  position: relative;
+}
+.guide-card-includes li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--gold);
+  font-weight: 700;
+  font-size: .8rem;
+}
+
+.guide-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.price-amount {
+  font-family: var(--font-serif);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--navy);
+  display: block;
+}
+.price-vat {
+  font-size: .72rem;
+  color: var(--text-light);
+}
+
+/* ---- WHY SECTION ---- */
+.why-section {
+  background: var(--cream);
+  padding: 96px 0;
+  border-top: 1px solid var(--border);
+}
+.why-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+.why-content h2 {
+  font-family: var(--font-serif);
+  font-size: clamp(1.7rem, 3vw, 2.4rem);
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+.why-content > p {
+  color: var(--text-mid);
+  line-height: 1.75;
+  margin-bottom: 40px;
+}
+.why-stats {
+  display: flex;
+  gap: 32px;
+}
+.stat-number {
+  font-family: var(--font-serif);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.stat-label {
+  font-size: .8rem;
+  color: var(--text-light);
+}
+
+.why-features {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.feature-item {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  padding: 20px;
+  background: var(--white);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+}
+.feature-icon {
+  width: 40px; height: 40px;
+  background: var(--navy);
+  color: var(--gold);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.feature-item strong {
+  display: block;
+  font-size: .9rem;
+  font-weight: 600;
+  color: var(--navy);
+  margin-bottom: 4px;
+}
+.feature-item p {
+  font-size: .83rem;
+  color: var(--text-light);
+  line-height: 1.5;
+}
+
+/* ---- NEWSLETTER ---- */
+.newsletter-section {
+  background: var(--navy);
+  padding: 64px 0;
+}
+.newsletter-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+.newsletter-text h2 {
+  font-family: var(--font-serif);
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 6px;
+}
+.newsletter-text p {
+  color: rgba(255,255,255,.6);
+  font-size: .9rem;
+}
+.newsletter-form {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.newsletter-input {
+  padding: 12px 16px;
+  border: 1.5px solid rgba(255,255,255,.2);
+  border-radius: var(--radius);
+  font-family: var(--font-sans);
+  font-size: .9rem;
+  background: rgba(255,255,255,.07);
+  color: var(--white);
+  width: 280px;
+  transition: border-color 150ms;
+}
+.newsletter-input::placeholder { color: rgba(255,255,255,.4); }
+.newsletter-input:focus {
+  outline: none;
+  border-color: rgba(255,255,255,.5);
+}
+
+/* ---- FOOTER ---- */
+.footer {
+  background: var(--navy);
+  border-top: 1px solid rgba(255,255,255,.08);
+  color: rgba(255,255,255,.7);
+  padding: 64px 0 0;
+}
+.footer-inner {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1.5fr;
+  gap: 48px;
+  padding-bottom: 48px;
+}
+.footer-logo .logo-f,
+.footer-logo .logo-text {
+  color: var(--white);
+}
+.footer-brand p {
+  font-size: .85rem;
+  color: rgba(255,255,255,.5);
+  margin-top: 12px;
+  line-height: 1.6;
+}
+.footer-charity {
+  margin-top: 10px !important;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: .8rem;
+  color: rgba(255,255,255,.5);
+}
+.footer-links h4,
+.footer-contact h4 {
+  font-size: .75rem;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.35);
+  margin-bottom: 16px;
+}
+.footer-links ul { list-style: none; }
+.footer-links li { margin-bottom: 10px; }
+.footer-links a,
+.footer-contact a {
+  font-size: .85rem;
+  color: rgba(255,255,255,.6);
+  text-decoration: none;
+  transition: color 150ms;
+}
+.footer-links a:hover,
+.footer-contact a:hover { color: var(--white); }
+.footer-note {
+  font-size: .78rem;
+  color: rgba(255,255,255,.35);
+  margin-top: 8px;
+}
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,.08);
+  padding: 20px 24px;
+  font-size: .78rem;
+  color: rgba(255,255,255,.3);
+}
+
+/* ---- MODAL ---- */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(13,27,42,.6);
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 200ms var(--ease-out);
+}
+.modal-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+.modal {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  width: 100%;
+  max-width: 480px;
+  padding: 40px;
+  position: relative;
+  transform: scale(0.96) translateY(8px);
+  transition: transform 250ms var(--ease-out);
+  max-height: 90vh;
+  overflow-y: auto;
+}
+.modal-overlay.open .modal {
+  transform: scale(1) translateY(0);
+}
+.modal-close {
+  position: absolute;
+  top: 16px; right: 16px;
+  background: var(--cream);
+  border: none;
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--text-mid);
+  transition: background 150ms;
+}
+.modal-close:hover { background: var(--border); }
+.modal-header { margin-bottom: 28px; }
+.modal-tag {
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.modal-title {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 4px;
+}
+.modal-product {
+  font-size: .88rem;
+  color: var(--text-light);
+}
+
+/* Stripe notice */
+.stripe-notice {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  background: #FFF8E6;
+  border: 1px solid #F0D080;
+  border-radius: var(--radius);
+  padding: 12px 14px;
+  margin-bottom: 20px;
+  font-size: .8rem;
+  color: #7A5A00;
+  line-height: 1.5;
+}
+.stripe-notice svg { flex-shrink: 0; margin-top: 1px; color: #C9A84C; }
+.stripe-notice code {
+  background: rgba(0,0,0,.07);
+  padding: 1px 5px;
+  border-radius: 3px;
+  font-size: .78rem;
+}
+
+.payment-methods {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.pm-item {
+  flex: 1;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: .8rem;
+  color: var(--text-mid);
+}
+.pm-swish {
+  font-size: .85rem;
+  font-weight: 700;
+  color: #4A90D9;
+  letter-spacing: -.01em;
+}
+
+.checkout-form { display: flex; flex-direction: column; gap: 14px; }
+.form-row { display: flex; flex-direction: column; gap: 5px; }
+.form-row label {
+  font-size: .78rem;
+  font-weight: 500;
+  color: var(--text-mid);
+}
+.form-input {
+  padding: 11px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  font-family: var(--font-sans);
+  font-size: .9rem;
+  color: var(--text);
+  transition: border-color 150ms;
+}
+.form-input:focus {
+  outline: none;
+  border-color: var(--navy);
+}
+.form-row-split {
+  flex-direction: row;
+  gap: 12px;
+}
+.form-row-split > div {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.form-row-split label {
+  font-size: .78rem;
+  font-weight: 500;
+  color: var(--text-mid);
+}
+
+.checkout-summary {
+  background: var(--cream);
+  border-radius: var(--radius);
+  padding: 14px;
+  font-size: .88rem;
+}
+.checkout-secure {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  font-size: .75rem;
+  color: var(--text-light);
+}
+
+/* ---- TOAST ---- */
+.toast {
+  position: fixed;
+  bottom: 24px; right: 24px;
+  background: var(--navy);
+  color: var(--white);
+  padding: 14px 20px;
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: .88rem;
+  box-shadow: var(--shadow-lg);
+  z-index: 2000;
+  transform: translateY(80px);
+  opacity: 0;
+  transition: transform 300ms var(--ease-out), opacity 300ms var(--ease-out);
+}
+.toast.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+.toast svg { color: var(--gold); flex-shrink: 0; }
+
+/* ---- RESPONSIVE ---- */
+@media (max-width: 900px) {
+  .guides-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
+  .guide-card-featured { transform: none; }
+  .why-grid { grid-template-columns: 1fr; gap: 48px; }
+  .lead-inner { grid-template-columns: 1fr; }
+  .lead-visual { display: none; }
+  .footer-inner { grid-template-columns: 1fr 1fr; }
+  .newsletter-inner { flex-direction: column; align-items: flex-start; }
+}
+
+@media (max-width: 680px) {
+  .nav-links, .btn-nav { display: none; }
+  .nav-toggle { display: flex; }
+  .mobile-menu { display: block; }
+  .hero { padding: 64px 0 56px; min-height: auto; }
+  .hero-scroll-indicator { display: none; }
+  .footer-inner { grid-template-columns: 1fr; gap: 32px; }
+  .why-stats { flex-direction: column; gap: 20px; }
+  .modal { padding: 28px 20px; }
+}
+
+</style>
+</head>
+<body>
+
+  <!-- ANNOUNCEMENT BAR -->
+  <!-- NAVIGATION -->
+  <header class="header" id="header">
+    <nav class="nav container">
+      <a href="/" class="logo">
+        <span class="logo-f">F</span><span class="logo-text">ahlers</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#guider">Guider</a></li>
+        <li><a href="#om">Om oss</a></li>
+        <li><a href="#kontakt">Kontakt</a></li>
+      </ul>
+      <a href="#guider" class="btn btn-nav">Se guider</a>
+      <button class="nav-toggle" aria-label="Öppna meny" id="navToggle">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+    <div class="mobile-menu" id="mobileMenu">
+      <ul>
+        <li><a href="#guider" class="mobile-link">Guider</a></li>
+        <li><a href="#om" class="mobile-link">Om oss</a></li>
+        <li><a href="#kontakt" class="mobile-link">Kontakt</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-bg-lines" aria-hidden="true">
+        <div class="bg-line"></div><div class="bg-line"></div>
+        <div class="bg-line"></div><div class="bg-line"></div>
+        <div class="bg-line"></div>
+      </div>
+      <div class="container hero-inner">
+        <div class="hero-tag reveal">Enkelt. Tydligt. Praktiskt.</div>
+        <h1 class="hero-title reveal reveal-delay-1">
+          Starta och driv företag<br />
+          <em>utan krångel</em>
+        </h1>
+        <p class="hero-sub reveal reveal-delay-2">
+          Våra guider ger dig konkreta svar på de frågor alla företagare ställer sig – men sällan får ett rakt svar på.
+        </p>
+        <div class="hero-actions reveal reveal-delay-3">
+          <a href="#guider" class="btn btn-primary">Se alla guider</a>
+          <a href="#gratisguide" class="btn btn-ghost">Ladda ner gratis guide</a>
+        </div>
+        <div class="hero-trust reveal reveal-delay-4">
+          <div class="trust-item">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1l1.8 3.6L14 5.4l-3 2.9.7 4.1L8 10.4l-3.7 2 .7-4.1L2 5.4l4.2-.8L8 1z" fill="#C9A84C"/></svg>
+            <span>Över 1 000 nöjda läsare</span>
+          </div>
+          <div class="trust-divider"></div>
+          <div class="trust-item">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 0C5.2 0 3 2.2 3 5c0 3.5 5 11 5 11s5-7.5 5-11c0-2.8-2.2-5-5-5zm0 7a2 2 0 110-4 2 2 0 010 4z" fill="#C9A84C"/></svg>
+            <span>Skrivet av svenska experter</span>
+          </div>
+          <div class="trust-divider"></div>
+          <div class="trust-item">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13 2H3a1 1 0 00-1 1v10a1 1 0 001 1h10a1 1 0 001-1V3a1 1 0 00-1-1zM7 11L3.5 7.5 4.9 6.1 7 8.2l4.1-4.1 1.4 1.4L7 11z" fill="#C9A84C"/></svg>
+            <span>PDF-format, direkt nedladdning</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-scroll-indicator" aria-hidden="true">
+        <div class="scroll-line"></div>
+        <span>Scrolla</span>
+      </div>
+    </section>
+
+    <!-- LEAD MAGNET -->
+    <section class="lead-magnet" id="gratisguide">
+      <div class="container lead-inner">
+        <div class="lead-content reveal">
+          <div class="lead-badge">GRATIS GUIDE</div>
+          <h2>Vad krävs egentligen för att starta företag?</h2>
+          <p>Ladda ner vår gratisguide och få en tydlig genomgång av allt du behöver veta – steg för steg, utan juridisk jargong.</p>
+          <ul class="lead-list">
+            <li>Fördelarna med att starta företag</li>
+            <li>Vilken företagsform som passar dig bäst</li>
+            <li>Vad det faktiskt kostar att komma igång</li>
+            <li>De vanligaste misstagen – och hur du undviker dem</li>
+          </ul>
+          <form class="lead-form" id="leadForm">
+            <input type="email" placeholder="Din e-postadress" required class="lead-input" />
+            <button type="submit" class="btn btn-primary">Skicka mig guiden</button>
+          </form>
+          <p class="lead-disclaimer">Inga spam. Avprenumerera när som helst.</p>
+        </div>
+        <div class="lead-visual reveal reveal-delay-1">
+          <div class="guide-mockup">
+            <div class="guide-mockup-inner">
+              <div class="mockup-logo">F</div>
+              <div class="mockup-title">Starta företag</div>
+              <div class="mockup-subtitle">En guide för dig som vill ta steget</div>
+              <div class="mockup-lines">
+                <div class="ml"></div><div class="ml ml-short"></div>
+                <div class="ml"></div><div class="ml ml-shorter"></div>
+                <div class="ml"></div>
+              </div>
+              <div class="mockup-badge">GRATIS</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GUIDES -->
+    <section class="guides-section" id="guider">
+      <div class="container">
+        <div class="section-header reveal">
+          <div class="section-tag">GUIDER & MALLAR</div>
+          <h2>Välj den guide som passar dig</h2>
+          <p>Praktiska verktyg för varje steg i ditt företagande.</p>
+        </div>
+
+        <div class="guides-grid">
+
+          <!-- Guide 1 -->
+          <article class="guide-card reveal" data-price="0" data-id="starta-enskild-firma">
+            <div class="guide-card-badge">GRATIS</div>
+            <div class="guide-card-category">Starta företag</div>
+            <h3 class="guide-card-title">Starta enskild firma</h3>
+            <p class="guide-card-desc">Allt du behöver veta för att registrera och komma igång med din enskilda firma – snabbt och utan onödigt krångel.</p>
+            <ul class="guide-card-includes">
+              <li>Steg-för-steg-guide</li>
+              <li>Checklista för registrering</li>
+              <li>Vanliga misstag att undvika</li>
+            </ul>
+            <div class="guide-card-footer">
+              <div class="guide-card-price">
+                <span class="price-amount">Gratis</span>
+              </div>
+              <button class="btn btn-outline" onclick="openFreeGuideModal()">
+                Skicka mig guiden
+              </button>
+            </div>
+          </article>
+
+          <!-- Guide 2 -->
+          <article class="guide-card guide-card-featured reveal reveal-delay-1" data-price="499" data-id="starta-aktiebolag">
+            <div class="guide-card-badge guide-card-badge--gold">POPULÄR</div>
+            <div class="guide-card-category">Starta företag</div>
+            <h3 class="guide-card-title">Starta aktiebolag</h3>
+            <p class="guide-card-desc">En komplett guide till att starta AB – från bolagsordning till första bokslut. Inklusive mall för aktieägaravtal.</p>
+            <ul class="guide-card-includes">
+              <li>Komplett startguide</li>
+              <li>Mall: Aktieägaravtal</li>
+              <li>Checklista för Bolagsverket</li>
+              <li>Skattetips för nya AB</li>
+            </ul>
+            <div class="guide-card-footer">
+              <div class="guide-card-price">
+                <span class="price-amount">499 kr</span>
+                <span class="price-vat">exkl. moms</span>
+              </div>
+              <button class="btn btn-primary" onclick="openCheckout('starta-aktiebolag', 'Starta aktiebolag', 499)">
+                Köp guide
+              </button>
+            </div>
+          </article>
+
+          <!-- Guide 3 -->
+          <article class="guide-card reveal reveal-delay-2" data-price="9999" data-id="full-access">
+            <div class="guide-card-badge guide-card-badge--dark">FULLSTÄNDIGT</div>
+            <div class="guide-card-category">Alla guider</div>
+            <h3 class="guide-card-title">Full Access</h3>
+            <p class="guide-card-desc">Tillgång till samtliga guider, mallar och checklistor – nuvarande och kommande. Det kompletta verktyget för ambitiösa företagare.</p>
+            <ul class="guide-card-includes">
+              <li>Alla befintliga guider</li>
+              <li>Alla framtida guider</li>
+              <li>Alla mallar & checklistor</li>
+              <li>Prioriterad support via e-post</li>
+            </ul>
+            <div class="guide-card-footer">
+              <div class="guide-card-price">
+                <span class="price-amount">9 999 kr</span>
+                <span class="price-vat">exkl. moms</span>
+              </div>
+              <button class="btn btn-outline" onclick="openCheckout('full-access', 'Full Access – Alla guider', 9999)">
+                Köp full access
+              </button>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- TRUST / WHY US -->
+    <section class="why-section">
+      <div class="container">
+        <div class="why-grid">
+          <div class="why-content reveal">
+            <div class="section-tag">VARFÖR FAHLERS</div>
+            <h2>Skrivet för verkligheten,<br />inte läroboken</h2>
+            <p>Vi vet att du inte har tid att läsa 200-sidiga juridiska dokument. Därför har vi gjort jobbet åt dig – samlat det som faktiskt spelar roll och presenterat det på ett sätt som är lätt att förstå och använda.</p>
+            <div class="why-stats">
+              <div class="stat">
+                <div class="stat-number">1 000+</div>
+                <div class="stat-label">Nöjda läsare</div>
+              </div>
+              <div class="stat">
+                <div class="stat-number">10 %</div>
+                <div class="stat-label">Till Muslim Aid</div>
+              </div>
+              <div class="stat">
+                <div class="stat-number">3+</div>
+                <div class="stat-label">Guider & mallar</div>
+              </div>
+            </div>
+          </div>
+          <div class="why-features reveal reveal-delay-1">
+            <div class="feature-item">
+              <div class="feature-icon">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2L2 6v4c0 5.5 3.5 9.7 8 11 4.5-1.3 8-5.5 8-11V6l-8-4z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+              </div>
+              <div>
+                <strong>Uppdaterade och korrekta</strong>
+                <p>Vi håller alla guider aktuella med de senaste reglerna och lagarna.</p>
+              </div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M7 10l2 2 4-4M10 2a8 8 0 100 16A8 8 0 0010 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <div>
+                <strong>Direkt nedladdning</strong>
+                <p>Du får din guide direkt efter köpet – ingen väntan, ingen krångel.</p>
+              </div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 4h12v9H4zM8 17h4M10 13v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <div>
+                <strong>PDF – använd var du vill</strong>
+                <p>Spara på datorn, läs på surfplattan eller skriv ut. Fungerar överallt.</p>
+              </div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2c-4.4 0-8 3.6-8 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8zm1 12H9v-2h2v2zm0-4H9V6h2v4z" fill="currentColor"/></svg>
+              </div>
+              <div>
+                <strong>Välgörenhet ingår</strong>
+                <p>10 % av varje köp doneras till Muslim Aid. Ditt köp gör skillnad.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- NEWSLETTER -->
+    <section class="newsletter-section" id="nyhetsbrev">
+      <div class="container">
+        <div class="newsletter-inner reveal">
+          <div class="newsletter-text">
+            <h2>Håll dig uppdaterad</h2>
+            <p>Få ett mejl när vi släpper nya guider. Inga onödiga utskick – bara relevant innehåll.</p>
+          </div>
+          <form class="newsletter-form" id="newsletterForm">
+            <input type="email" placeholder="din@epost.se" required class="newsletter-input" />
+            <button type="submit" class="btn btn-primary">Prenumerera</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer" id="kontakt">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <div class="logo footer-logo">
+          <span class="logo-f">F</span><span class="logo-text">ahlers</span>
+        </div>
+        <p>Enkla guider för ett professionellt företagande.</p>
+        <p class="footer-charity">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1l.5 1h5l-4 3 1.5 5L7 8l-3 2 1.5-5L2 2h5L7 1z" fill="#C9A84C"/></svg>
+          10 % av varje köp till Muslim Aid
+        </p>
+      </div>
+      <div class="footer-links">
+        <h4>Sidor</h4>
+        <ul>
+          <li><a href="#guider">Guider</a></li>
+          <li><a href="#om">Om oss</a></li>
+          <li><a href="#kontakt">Kontakt</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Information</h4>
+        <ul>
+          <li><a href="#">Integritetspolicy</a></li>
+          <li><a href="#">Köpvillkor</a></li>
+          <li><a href="#">Cookiepolicy</a></li>
+        </ul>
+      </div>
+      <div class="footer-contact">
+        <h4>Kontakt</h4>
+        <a href="mailto:info@fahlers.se">info@fahlers.se</a>
+        <p class="footer-note">Svarar vanligtvis inom 1 arbetsdag.</p>
+      </div>
+    </div>
+    <div class="footer-bottom container">
+      <p>© 2025 Fahler Consulting AB. Alla rättigheter förbehållna.</p>
+    </div>
+  </footer>
+
+  <!-- CHECKOUT MODAL -->
+  <div class="modal-overlay" id="checkoutModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal">
+      <button class="modal-close" id="modalClose" aria-label="Stäng">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M1 1l16 16M17 1L1 17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+      <div class="modal-header">
+        <div class="modal-tag">SÄKER BETALNING</div>
+        <h2 id="modalTitle" class="modal-title">Köp guide</h2>
+        <p id="modalProduct" class="modal-product"></p>
+      </div>
+      <div id="stripeContainer">
+        <div id="stripePlaceholder" class="stripe-placeholder">
+          <div class="stripe-notice">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2a8 8 0 100 16A8 8 0 0010 2zm1 12H9v-2h2v2zm0-4H9V6h2v4z" fill="currentColor"/></svg>
+            <p>Stripe-integration aktiv – lägg till dina API-nycklar i <code>js/stripe-config.js</code> för att aktivera kortbetalning.</p>
+          </div>
+          <div class="payment-methods">
+            <div class="pm-item">
+              <svg width="32" height="20" viewBox="0 0 32 20" fill="none"><rect width="32" height="20" rx="3" fill="#1A1F71"/><path d="M13.3 13.3h-1.6L12.8 7h1.6l-1.1 6.3zM18.7 7.1c-.3-.1-.8-.3-1.5-.3-1.6 0-2.8.9-2.8 2.1 0 .9.8 1.4 1.4 1.7.6.3.8.5.8.8 0 .4-.5.6-1 .6-.7 0-1-.1-1.6-.3l-.2-.1-.2 1.4c.4.2 1.1.3 1.8.3 1.7 0 2.9-.9 2.9-2.2 0-.7-.5-1.3-1.5-1.7-.6-.3-1-.5-1-.8 0-.3.3-.5.9-.5.5 0 .9.1 1.2.2l.1.1.2-1.3zM21 7h-1.3c-.4 0-.7.1-.9.5l-2.4 5.8h1.7l.3-.9h2.1l.2.9H22L21 7zm-2 3.8l.6-1.8.4 1.8h-1zM11.1 7L9.5 11.4l-.2-.8C9 9.9 8.2 9 7.3 8.5l1.4 4.8H10.4L12.8 7h-1.7z" fill="white"/><path d="M8.1 7H5.8l-.1.2c1.8.5 3 1.6 3.5 3l-.5-2.7C8.6 7.2 8.4 7 8.1 7z" fill="#F9A51A"/></svg>
+              <span>Visa / Mastercard</span>
+            </div>
+            <div class="pm-item">
+              <div class="pm-swish">Swish</div>
+              <span>Swish</span>
+            </div>
+          </div>
+          <form id="mockCheckoutForm" class="checkout-form">
+            <div class="form-row">
+              <label>Namn</label>
+              <input type="text" placeholder="Förnamn Efternamn" class="form-input" required />
+            </div>
+            <div class="form-row">
+              <label>E-postadress</label>
+              <input type="email" placeholder="din@epost.se" class="form-input" required id="checkoutEmail"/>
+            </div>
+            <div class="form-row">
+              <label>Kortnummer</label>
+              <div class="card-input-mock">
+                <input type="text" placeholder="1234 5678 9012 3456" class="form-input" maxlength="19" id="cardNumber" />
+              </div>
+            </div>
+            <div class="form-row form-row-split">
+              <div>
+                <label>Utgångsdatum</label>
+                <input type="text" placeholder="MM/ÅÅ" class="form-input" maxlength="5" />
+              </div>
+              <div>
+                <label>CVC</label>
+                <input type="text" placeholder="123" class="form-input" maxlength="3" />
+              </div>
+            </div>
+            <div id="checkoutSummary" class="checkout-summary"></div>
+            <button type="submit" class="btn btn-primary btn-full" id="payBtn">
+              <span id="payBtnText">Betala</span>
+            </button>
+            <p class="checkout-secure">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1L2 3v3c0 3 1.8 5.1 4 5.7 2.2-.6 4-2.7 4-5.7V3L6 1z" stroke="currentColor" stroke-width="1.2"/></svg>
+              Säker betalning med SSL-kryptering
+            </p>
+          </form>
+        </div>
+        <!-- Stripe Elements will mount here when API keys are configured -->
+        <div id="stripeElements" style="display:none;"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FREE GUIDE MODAL -->
+  <div class="modal-overlay" id="freeGuideModal" role="dialog" aria-modal="true" aria-labelledby="freeGuideTitle">
+    <div class="modal">
+      <button class="modal-close" id="freeGuideClose" aria-label="Stäng">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M1 1l16 16M17 1L1 17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+      <div class="modal-header">
+        <div class="modal-tag">GRATIS GUIDE</div>
+        <h2 id="freeGuideTitle" class="modal-title">Starta enskild firma</h2>
+        <p class="modal-product">Ange din e-postadress så skickar vi guiden direkt till din inkorg.</p>
+      </div>
+      <form id="freeGuideForm" style="margin-top:24px;display:flex;flex-direction:column;gap:16px;">
+        <div class="form-row">
+          <label>E-postadress</label>
+          <input type="email" placeholder="din@epost.se" class="form-input" required />
+        </div>
+        <button type="submit" class="btn btn-primary btn-full">Skicka mig guiden</button>
+        <p class="checkout-secure">Inga spam. Avprenumerera när som helst.</p>
+      </form>
+    </div>
+  </div>
+
+  <!-- SUCCESS TOAST -->
+  <div class="toast" id="toast" role="status" aria-live="polite">
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 9l4 4 8-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <span id="toastMsg">Tack! Vi skickar guiden till din e-post.</span>
+  </div>
+
+  
+  <script>
+/**
+ * ============================================================
+ *  FAHLERS – Stripe-konfiguration
+ * ============================================================
+ *
+ *  1. Skapa ett konto på https://stripe.com
+ *  2. Gå till Dashboard → Developers → API keys
+ *  3. Kopiera din "Publishable key" (börjar med pk_live_ eller pk_test_)
+ *  4. Klistra in den nedan
+ *
+ *  OBS: Lägg ALDRIG din hemliga nyckel (sk_...) i en frontend-fil!
+ *  Secret key används bara på din server / backend.
+ * ============================================================
+ */
+
+const STRIPE_CONFIG = {
+  // Byt ut mot din riktiga publishable key
+  publishableKey: 'pk_test_DIN_NYCKEL_HÄR',
+
+  // Produkter och priser (matcha med dina Stripe Price IDs när du skapar dem)
+  products: {
+    'starta-enskild-firma': {
+      name: 'Starta enskild firma',
+      priceId: 'price_XXXXXX', // Gratis – hanteras separat
+      amount: 0,
+      currency: 'sek',
+    },
+    'starta-aktiebolag': {
+      name: 'Starta aktiebolag',
+      priceId: 'price_XXXXXX', // Skapa i Stripe Dashboard
+      amount: 49900,           // i ören (499 kr)
+      currency: 'sek',
+    },
+    'full-access': {
+      name: 'Full Access – Alla guider, mallar och checklistor',
+      priceId: 'price_XXXXXX', // Skapa i Stripe Dashboard
+      amount: 999900,          // i ören (9 999 kr)
+      currency: 'sek',
+    },
+  },
+
+  // URL dit kunden skickas efter lyckad betalning
+  successUrl: window.location.origin + '/tack.html',
+  cancelUrl:  window.location.origin + '/#guider',
+};
+
+// ============================================================
+//  Kontrollerar om Stripe är korrekt konfigurerat
+// ============================================================
+const STRIPE_READY = (
+  STRIPE_CONFIG.publishableKey &&
+  !STRIPE_CONFIG.publishableKey.includes('DIN_NYCKEL')
+);
+
+
+/**
+ * FAHLERS – main.js
+ * - Scroll reveal
+ * - Header scroll state
+ * - Mobile menu
+ * - Checkout modal
+ * - Stripe integration (aktiveras när API-nyckel läggs till)
+ * - Lead magnet & newsletter forms
+ * - Toast notifications
+ */
+
+'use strict';
+
+/* ============================================================
+   SCROLL REVEAL
+   ============================================================ */
+const revealObserver = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  },
+  { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+);
+
+document.querySelectorAll('.reveal').forEach((el) => revealObserver.observe(el));
+
+
+/* ============================================================
+   HEADER – scrolled state
+   ============================================================ */
+const header = document.getElementById('header');
+window.addEventListener('scroll', () => {
+  header.classList.toggle('scrolled', window.scrollY > 20);
+}, { passive: true });
+
+
+/* ============================================================
+   MOBILE MENU
+   ============================================================ */
+const navToggle   = document.getElementById('navToggle');
+const mobileMenu  = document.getElementById('mobileMenu');
+
+navToggle.addEventListener('click', () => {
+  const isOpen = mobileMenu.classList.toggle('open');
+  navToggle.classList.toggle('open', isOpen);
+  navToggle.setAttribute('aria-expanded', isOpen);
+});
+
+document.querySelectorAll('.mobile-link').forEach((link) => {
+  link.addEventListener('click', () => {
+    mobileMenu.classList.remove('open');
+    navToggle.classList.remove('open');
+  });
+});
+
+
+/* ============================================================
+   TOAST
+   ============================================================ */
+function showToast(message, duration = 4000) {
+  const toast   = document.getElementById('toast');
+  const toastMsg = document.getElementById('toastMsg');
+  toastMsg.textContent = message;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), duration);
+}
+
+
+/* ============================================================
+   LEAD MAGNET FORM
+   ============================================================ */
+document.getElementById('leadForm').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const email = e.target.querySelector('input[type="email"]').value;
+  // TODO: skicka e-post till din e-postleverantör (Mailchimp, ConvertKit, etc.)
+  console.log('Lead magnet signup:', email);
+  showToast('Tack! Guiden är på väg till din inkorg.');
+  e.target.reset();
+});
+
+document.getElementById('cardLeadForm') && document.getElementById('cardLeadForm').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const email = e.target.querySelector('input[type="email"]').value;
+  console.log('Card lead signup:', email);
+  showToast('Tack! Guiden är på väg till din inkorg.');
+  e.target.reset();
+});
+
+/* ============================================================
+   FREE GUIDE MODAL
+   ============================================================ */
+const freeGuideModal = document.getElementById('freeGuideModal');
+const freeGuideClose = document.getElementById('freeGuideClose');
+
+function openFreeGuideModal() {
+  freeGuideModal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  setTimeout(() => freeGuideClose.focus(), 100);
+}
+
+function closeFreeGuideModal() {
+  freeGuideModal.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+freeGuideClose.addEventListener('click', closeFreeGuideModal);
+freeGuideModal.addEventListener('click', (e) => {
+  if (e.target === freeGuideModal) closeFreeGuideModal();
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && freeGuideModal.classList.contains('open')) closeFreeGuideModal();
+});
+
+document.getElementById('freeGuideForm').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const email = e.target.querySelector('input[type="email"]').value;
+  console.log('Free guide signup:', email);
+  closeFreeGuideModal();
+  showToast('Tack! Guiden är på väg till din inkorg.');
+  e.target.reset();
+});
+
+
+/* ============================================================
+   NEWSLETTER FORM
+   ============================================================ */
+document.getElementById('newsletterForm').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const email = e.target.querySelector('input[type="email"]').value;
+  console.log('Newsletter signup:', email);
+  showToast('Tack! Du prenumererar nu på Fahlers nyhetsbrev.');
+  e.target.reset();
+});
+
+
+/* ============================================================
+   CHECKOUT MODAL
+   ============================================================ */
+const modal        = document.getElementById('checkoutModal');
+const modalClose   = document.getElementById('modalClose');
+const modalProduct = document.getElementById('modalProduct');
+const payBtn       = document.getElementById('payBtn');
+const payBtnText   = document.getElementById('payBtnText');
+const checkoutSummary = document.getElementById('checkoutSummary');
+
+let currentProduct = null;
+
+function formatPrice(amount) {
+  if (amount === 0) return 'Gratis';
+  return new Intl.NumberFormat('sv-SE', { style: 'currency', currency: 'SEK', maximumFractionDigits: 0 }).format(amount);
+}
+
+function openCheckout(productId, productName, amount) {
+  currentProduct = { id: productId, name: productName, amount };
+
+  document.getElementById('modalTitle').textContent =
+    amount === 0 ? 'Ladda ner gratis' : 'Köp guide';
+  modalProduct.textContent = productName;
+
+  checkoutSummary.innerHTML = `
+    <div style="display:flex;justify-content:space-between;align-items:center;">
+      <span>${productName}</span>
+      <strong>${formatPrice(amount)}</strong>
+    </div>
+    ${amount > 0 ? `<div style="font-size:.75rem;color:var(--text-light);margin-top:4px;">10 % av köpet doneras till Muslim Aid</div>` : ''}
+  `;
+
+  if (amount === 0) {
+    payBtnText.textContent = 'Ladda ner gratis';
+  } else {
+    payBtnText.textContent = `Betala ${formatPrice(amount)}`;
+  }
+
+  // If Stripe is configured, load Stripe.js and show real payment form
+  if (STRIPE_READY && amount > 0) {
+    loadStripeCheckout(productId, amount);
+  }
+
+  modal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+
+  // Focus trap
+  setTimeout(() => modalClose.focus(), 100);
+}
+
+function closeCheckout() {
+  modal.classList.remove('open');
+  document.body.style.overflow = '';
+  currentProduct = null;
+}
+
+modalClose.addEventListener('click', closeCheckout);
+modal.addEventListener('click', (e) => {
+  if (e.target === modal) closeCheckout();
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && modal.classList.contains('open')) closeCheckout();
+});
+
+
+/* ============================================================
+   MOCK CHECKOUT (aktiv tills Stripe-nycklar läggs till)
+   ============================================================ */
+document.getElementById('mockCheckoutForm').addEventListener('submit', (e) => {
+  e.preventDefault();
+
+  if (!currentProduct) return;
+
+  payBtn.disabled = true;
+  payBtnText.textContent = 'Behandlar...';
+
+  // Simulera en liten fördröjning
+  setTimeout(() => {
+    payBtn.disabled = false;
+    closeCheckout();
+
+    if (currentProduct.amount === 0) {
+      showToast('Guiden laddas ner nu!');
+      // TODO: trigga faktisk PDF-nedladdning
+    } else {
+      showToast(`Tack för ditt köp! ${currentProduct.name} skickas till din e-post.`);
+    }
+  }, 1200);
+});
+
+
+/* ============================================================
+   STRIPE CHECKOUT
+   Aktiveras automatiskt när STRIPE_READY === true
+   ============================================================ */
+function loadStripeCheckout(productId, amount) {
+  // Ladda Stripe.js om det inte redan är laddat
+  if (!window.Stripe) {
+    const script = document.createElement('script');
+    script.src = 'https://js.stripe.com/v3/';
+    script.onload = () => initStripeElements(productId, amount);
+    document.head.appendChild(script);
+  } else {
+    initStripeElements(productId, amount);
+  }
+}
+
+async function initStripeElements(productId, amount) {
+  /**
+   * OBS: För att ta emot riktiga betalningar behöver du en backend/server
+   * som skapar en PaymentIntent och returnerar client_secret.
+   *
+   * Alternativt: använd Stripe Checkout (hosted) som är enklare att sätta upp.
+   * Se: https://stripe.com/docs/payments/checkout
+   *
+   * Exempel med Stripe Checkout (rekommenderat):
+   *
+   *   const stripe = Stripe(STRIPE_CONFIG.publishableKey);
+   *   const { error } = await stripe.redirectToCheckout({
+   *     lineItems: [{ price: STRIPE_CONFIG.products[productId].priceId, quantity: 1 }],
+   *     mode: 'payment',
+   *     successUrl: STRIPE_CONFIG.successUrl,
+   *     cancelUrl: STRIPE_CONFIG.cancelUrl,
+   *   });
+   *
+   * Aktivera ovanstående kod och ta bort demo-formuläret när du är redo.
+   */
+
+  console.log('Stripe redo. Produkt:', productId, 'Belopp:', amount, 'öre');
+  // Stripe Checkout aktiveras här när backend finns på plats
+}
+
+
+/* ============================================================
+   CARD NUMBER FORMATTING
+   ============================================================ */
+const cardInput = document.getElementById('cardNumber');
+if (cardInput) {
+  cardInput.addEventListener('input', (e) => {
+    let v = e.target.value.replace(/\D/g, '').substring(0, 16);
+    e.target.value = v.replace(/(.{4})/g, '$1 ').trim();
+  });
+}
+
+
+/* ============================================================
+   SMOOTH ANCHOR SCROLL (offset för sticky header)
+   ============================================================ */
+document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+  anchor.addEventListener('click', (e) => {
+    const target = document.querySelector(anchor.getAttribute('href'));
+    if (!target) return;
+    e.preventDefault();
+    const headerH = header.offsetHeight + 8;
+    const top = target.getBoundingClientRect().top + window.scrollY - headerH;
+    window.scrollTo({ top, behavior: 'smooth' });
+  });
+});
+
+</script>
+</body>
+</html>
